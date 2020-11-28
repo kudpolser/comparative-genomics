@@ -29,7 +29,9 @@ Sibelia -s loose -m 1000 Yersinia_pestis.fasta
 ```
 Получившиеся файлы лежат в папке Sibelia
 
-#### 2.calculate the number of all blocks, common blocks, repeated blocks. Compare the results for different threshold. Add figures to the report. Then for 1kb calculations
+#### 2.calculate the number of all blocks, common blocks, repeated blocks. Compare the results for different threshold. Add figures to the report. 
+
+#### !Then for 1kb calculations
 #### 3.visualize the plots where each point represents a block, y coordinate – it’s length, x – it’s frequency. Add figures in the report.
 #### 4.for the longest common block and the longest rare block (found in two strains) describe the gene composition. Do the genes form operons? Add figures to the report.
 #### 5.construct pairwise distance matrix using number of common synteny blocks as a evolutionary distance, visualize the heat map. Add the figure to the report.
