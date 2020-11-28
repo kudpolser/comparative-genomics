@@ -10,15 +10,15 @@ Organism: Yersinia pestis (enterobacteria)
 Скачаем все геномы из базы ncbi и удалим из них плазмиды с помощью команды sed
 ```
 sed -n '/plasmid.*/q;p' GCF_000834825.1_ASM83482v1_genomic.fna > ASM83482v1.fasta
-sed -n '/plasmid.*/q;p' GCF_000834825.1_ASM83484v1_genomic.fna > ASM83484v1.fasta
-sed -n '/plasmid.*/q;p' GCF_000834825.1_ASM118871v1_genomic.fna > ASM118871v1.fasta
-sed -n '/plasmid.*/q;p' GCF_000834825.1_ASM118873v1_genomic.fna > ASM118873v1.fasta
-sed -n '/plasmid.*/q;p' GCF_000834825.1_ASM379820v1_genomic.fna > ASM379820v1.fasta
-sed -n '/plasmid.*/q;p' GCF_000834825.1_ASM379822v1_genomic.fna > ASM379822v1.fasta
-sed -n '/plasmid.*/q;p' GCF_000834825.1_ASM1519065v1_genomic.fna > ASM1519065v1.fasta
-sed -n '/plasmid.*/q;p' GCF_000834825.1_ASM2284v1_genomic.fna > ASM2284v1.fasta
-sed -n '/plasmid.*/q;p' GCF_000834825.1_ASM906v1_genomic.fna > ASM906v1.fasta
-sed -n '/plasmid.*/q;p' GCF_000834825.1_ASM929594v1_genomic.fna > ASM929594v1.fasta
+sed -n '/plasmid.*/q;p' GCF_000834845.1_ASM83484v1_genomic.fna > ASM83484v1.fasta
+sed -n '/plasmid.*/q;p' GCF_001188715.1_ASM118871v1_genomic.fna > ASM118871v1.fasta
+sed -n '/plasmid.*/q;p' GCF_001188735.1_ASM118873v1_genomic.fna > ASM118873v1.fasta
+sed -n '/plasmid.*/q;p' GCF_003798205.1_ASM379820v1_genomic.fna > ASM379820v1.fasta
+sed -n '/plasmid.*/q;p' GCF_003798225.1_ASM379822v1_genomic.fna > ASM379822v1.fasta
+sed -n '/plasmid.*/q;p' GCA_015190655.1_ASM1519065v1_genomic.fna > ASM1519065v1.fasta 
+sed -n '/plasmid.*/q;p' GCF_000022845.1_ASM2284v1_genomic.fna > ASM2284v1.fasta
+sed -n '/plasmid.*/q;p' GCF_000009065.1_ASM906v1_genomic.fna > ASM906v1.fasta
+sed -n '/plasmid.*/q;p' GCF_009295945.1_ASM929594v1_genomic.fna > ASM929594v1.fasta
 ```
 #### 1.construct synteny blocks using Sibelia software [1] for two threshold of minimum block length (5kb and 1kb). Put the blocks files in Supplements.
 #### 2.calculate the number of all blocks, common blocks, repeated blocks. Compare the results for different threshold. Add figures to the report. Then for 1kb calculations
