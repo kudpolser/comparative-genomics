@@ -21,6 +21,14 @@ sed -n '/plasmid.*/q;p' GCF_000009065.1_ASM906v1_genomic.fna > ASM906v1.fasta
 sed -n '/plasmid.*/q;p' GCF_009295945.1_ASM929594v1_genomic.fna > ASM929594v1.fasta
 ```
 #### 1.construct synteny blocks using Sibelia software [1] for two threshold of minimum block length (5kb and 1kb). Put the blocks files in Supplements.
+Сольем все файлы в один и запустим программу Sibelia
+```
+cat *.fasta > Yersinia_pestis.fasta
+Sibelia -s loose -m 5000 Yersinia_pestis.fasta
+Sibelia -s loose -m 1000 Yersinia_pestis.fasta
+```
+Получившиеся файлы лежат в папке Sibelia
+
 #### 2.calculate the number of all blocks, common blocks, repeated blocks. Compare the results for different threshold. Add figures to the report. Then for 1kb calculations
 #### 3.visualize the plots where each point represents a block, y coordinate – it’s length, x – it’s frequency. Add figures in the report.
 #### 4.for the longest common block and the longest rare block (found in two strains) describe the gene composition. Do the genes form operons? Add figures to the report.
