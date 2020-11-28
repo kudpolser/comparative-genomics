@@ -4,7 +4,22 @@
 Assemblies:
 ASM83482v1	ASM83484v1	ASM118871v1	ASM118873v1	ASM379820v1	ASM379822v1	ASM1519065v1	ASM2284v1	ASM906v1	ASM929594v1
 
+Organism: Yersinia pestis (enterobacteria)
+
 #### 0.filter out the plasmids
+Скачаем все геномы из базы ncbi и удалим из них плазмиды с помощью команды sed
+```
+sed -n '/plasmid.*/q;p' GCF_000834825.1_ASM83482v1_genomic.fna > ASM83482v1.fasta
+sed -n '/plasmid.*/q;p' GCF_000834825.1_ASM83484v1_genomic.fna > ASM83484v1.fasta
+sed -n '/plasmid.*/q;p' GCF_000834825.1_ASM118871v1_genomic.fna > ASM118871v1.fasta
+sed -n '/plasmid.*/q;p' GCF_000834825.1_ASM118873v1_genomic.fna > ASM118873v1.fasta
+sed -n '/plasmid.*/q;p' GCF_000834825.1_ASM379820v1_genomic.fna > ASM379820v1.fasta
+sed -n '/plasmid.*/q;p' GCF_000834825.1_ASM379822v1_genomic.fna > ASM379822v1.fasta
+sed -n '/plasmid.*/q;p' GCF_000834825.1_ASM1519065v1_genomic.fna > ASM1519065v1.fasta
+sed -n '/plasmid.*/q;p' GCF_000834825.1_ASM2284v1_genomic.fna > ASM2284v1.fasta
+sed -n '/plasmid.*/q;p' GCF_000834825.1_ASM906v1_genomic.fna > ASM906v1.fasta
+sed -n '/plasmid.*/q;p' GCF_000834825.1_ASM929594v1_genomic.fna > ASM929594v1.fasta
+```
 #### 1.construct synteny blocks using Sibelia software [1] for two threshold of minimum block length (5kb and 1kb). Put the blocks files in Supplements.
 #### 2.calculate the number of all blocks, common blocks, repeated blocks. Compare the results for different threshold. Add figures to the report. Then for 1kb calculations
 #### 3.visualize the plots where each point represents a block, y coordinate – it’s length, x – it’s frequency. Add figures in the report.
