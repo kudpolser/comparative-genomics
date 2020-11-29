@@ -24,8 +24,8 @@ sed -n '/plasmid.*/q;p' GCF_009295945.1_ASM929594v1_genomic.fna > ASM929594v1.fa
 Сольем все файлы в один и запустим программу Sibelia
 ```
 cat *.fasta > Yersinia_pestis.fasta
-Sibelia -s loose -m 5000 Yersinia_pestis.fasta
-Sibelia -s loose -m 1000 Yersinia_pestis.fasta
+Sibelia -s fine -m 5000 Yersinia_pestis.fasta
+Sibelia -s fine -m 1000 Yersinia_pestis.fasta
 ```
 Получившиеся файлы лежат в папке Sibelia
 
@@ -63,7 +63,7 @@ block_1kb = parse_blocks(f)
 ```
 len(block_5kb), len(block_1kb)
 ```
-(133, 257)
+(156, 311)
 
 Посчитаем число блоков, которые есть в каждом геноме:
 ```
@@ -76,7 +76,7 @@ def common_block(block):
 
 common_block(block_5kb), common_block(block_1kb)
 ```
-(116, 204)
+(138, 252)
 
 Посчитаем число блоков, которые повторяются хотя бы в одном геноме:
 ```
@@ -89,7 +89,7 @@ def repeated_block(block):
 
 repeated_block(block_5kb), repeated_block(block_1kb)
 ```
-(2, 25)
+(2, 19)
 
 В итоге, как и ожидалось, при минимальном размере блока в 5kb было найдено меньшее число блоков, но большая доля из них представлена в каждом геноме. Также очень малое количество блоков длиной более 5kb повторяются в геномах.
 
@@ -123,12 +123,11 @@ for i in range(1, len(block_1kb)+1):
     block_1kb_freq['Block #' + str(i)] = len(set(block_1kb['Block #' + str(i)]))
 ```
 
-Получилась такая визуализация:
 ![GitHub Logo](number_of_genome_and_length.png)
 
 #### 4.for the longest common block and the longest rare block (found in two strains) describe the gene composition. Do the genes form operons? Add figures to the report.
 
-Наиболее редкий и длинный блок 2, самый длинный и частый блок 84. Сохраним их координаты в словарь и загрузим аннотацию генома, чтобы посмотреть какие гены находятся в этих блоках.
+Наиболее редкий и длинный блок 311, самый длинный и частый блок 228. Сохраним их координаты в словарь и загрузим аннотацию генома, чтобы посмотреть какие гены находятся в этих блоках.
 
 ```
 in_handle = open('GCF_000022845.1_ASM2284v1_genomic.gff')
@@ -136,24 +135,24 @@ for rec in GFF.parse(in_handle):
     print(rec)
 in_handle.close()
 
-#block 2
+#block 311
 for i in range(len(rec.features)):
-    if rec.features[i].location.start > 1987298 and rec.features[i].location.end < 2069521:
+    if rec.features[i].location.start > 34621 and rec.features[i].location.end < 41383 and rec.features[i].strand == -1:
         print(rec.features[i].qualifiers['Name'])
  
-block 84
+block 228
 for i in range(len(rec.features)):
-    if rec.features[i].location.start > 192081 and rec.features[i].location.end < 193950:
-        print(rec.features[i].qualifiers['Name'], '\n')
+    if rec.features[i].location.start > 1987303 and rec.features[i].location.end < 2069408:
+        print(rec.features[i].qualifiers['Name'])
 ```
 Во самом популярном блоке нашлись гены, составляющие опероны:
 - rstA и rstB (two-component system response regulator)
 - pntA и pntB (Re/Si-specific NAD(P)(+) transhydrogenase subunit alpha and beta)
 и другие
 
-В самом редком блоке есть ген:
-- cAMP (activated global transcriptional regulator CRP)
-Блок короткий, поэтому генов немного. В целом, вероятно этот реултор транскрипции может быть полезен в при особых условиях, поэтому он нашелся только в дву геномах из 10.
+В самом редком блоке есть гены:
+- YPZ3_RS00185, YPZ3_RS00190 
+Блок короткий, поэтому генов немного. 
 
 #### 5.construct pairwise distance matrix using number of common synteny blocks as a evolutionary distance, visualize the heat map. Add the figure to the report.
 
@@ -178,6 +177,20 @@ for i in range(1, 11):
 ![GitHub Logo](pairwise_distance_matrix.png)
 
 #### 6.Find a pair of the most distant genomes (use random one in case of several equal meanings). Visualize whole-genome alignment using dotplot [2], reconstruct scenario of inversions [3]. Calculate length of inversions. For the longest one find the repeats that might be substrates of recombination.
+
+Найдем самые близкие и самые далекие геномы:
+```
+max_d = 0
+max_g = []
+for i in range(0,10):
+    for j in range(0,10):
+        if max_d < res[i][j] and i != j:
+            max_d = res[i][j]
+            max_g = [i, j]
+```
+
+Получилось, что геномы 2, 4 - самые далекие. Это же мы видели на иллюстрации выше. Номера геномов были сгенерированы Sibelia, согласно порядку в файле.
+
 
 [1] http://bioinf.spbau.ru/sibelia
 Ключи запуска
