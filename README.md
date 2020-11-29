@@ -156,6 +156,27 @@ for i in range(len(rec.features)):
 Блок короткий, поэтому генов немного. В целом, вероятно этот реултор транскрипции может быть полезен в при особых условиях, поэтому он нашелся только в дву геномах из 10.
 
 #### 5.construct pairwise distance matrix using number of common synteny blocks as a evolutionary distance, visualize the heat map. Add the figure to the report.
+
+Сохраним к каждому блоку множество геномов, которые в них встретились. Далее для каждого генома сохраним блоки, которые он содержит. Посчитаем попарное пересечение множеств блоков для каждых геномов и нарисуем картинку.
+
+```
+block_1kb_set = {}
+for i in range(1, len(block_1kb)+1):
+        block_1kb_set['Block #' + str(i)] = set(block_1kb['Block #' + str(i)])
+        
+gen_set = defaultdict(set)
+for k, v in block_1kb_set.items():
+    for g in v:
+        gen_set[int(g)].add(k)
+        
+res = [[0 for _ in range(10)] for _ in range(10)]
+for i in range(1, 11):
+    for j in range(1, 11):
+        res[i-1][j-1] = len(gen_set[i].intersection(gen_set[j]))
+```
+
+![GitHub Logo](pairwise_distance_matrix.png)
+
 #### 6.Find a pair of the most distant genomes (use random one in case of several equal meanings). Visualize whole-genome alignment using dotplot [2], reconstruct scenario of inversions [3]. Calculate length of inversions. For the longest one find the repeats that might be substrates of recombination.
 
 [1] http://bioinf.spbau.ru/sibelia
