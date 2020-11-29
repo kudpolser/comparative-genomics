@@ -95,6 +95,37 @@ repeated_block(block_5kb), repeated_block(block_1kb)
 
 #### !Then for 1kb calculations
 #### 3.visualize the plots where each point represents a block, y coordinate – it’s length, x – it’s frequency. Add figures in the report.
+
+Достанем из файла длину блоков и вычислим среднюю длину каждлго блока и уникальное число геномов, в которых он представлен:
+```
+def parse_blocks_length(f):
+    block = {}
+    for i in range(len(f)):
+        if f[i].find('Block') == 0:
+            idx = f[i][:-1]
+            block[idx] = []
+            skip_one_row = 1
+        elif skip_one_row == 1:
+            skip_one_row = 0
+        elif f[i][:3] == '---':
+            continue
+        else:
+            block[idx].append(int(f[i].split('\t')[4][:-1]))
+    return block
+    
+block_1kb_len = parse_blocks_length(f)
+
+for i in range(1, len(block_1kb_len)+1):
+    block_1kb_len['Block #' + str(i)] = int(sum(block_1kb_len['Block #' + str(i)])/len(block_1kb_len['Block #' + str(i)]))
+
+block_1kb_freq = {}
+for i in range(1, len(block_1kb)+1):
+    block_1kb_freq['Block #' + str(i)] = len(set(block_1kb['Block #' + str(i)]))
+```
+
+Получилась такая визуализация:
+![GitHub Logo](number_of_genome_and_length.png)
+
 #### 4.for the longest common block and the longest rare block (found in two strains) describe the gene composition. Do the genes form operons? Add figures to the report.
 #### 5.construct pairwise distance matrix using number of common synteny blocks as a evolutionary distance, visualize the heat map. Add the figure to the report.
 #### 6.Find a pair of the most distant genomes (use random one in case of several equal meanings). Visualize whole-genome alignment using dotplot [2], reconstruct scenario of inversions [3]. Calculate length of inversions. For the longest one find the repeats that might be substrates of recombination.
